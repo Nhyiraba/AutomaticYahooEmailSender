@@ -233,50 +233,51 @@ email = [em.strip() for em in columnBinder(att_new,email_colIndex)]
 
 att_email = {full_name[i].strip() : email[i].strip() for i in range(len(full_name))}
 
-# att_cert = {cert_files[0][i].strip() : cert_files[1][i].strip() for i in range(len(cert_files[0]))}
+cert_files = directoryFiles("certs","jpg, jpeg, png") #this returns both directory and file name
+att_cert = {cert_files[0][i].strip() : cert_files[1][i].strip() for i in range(len(cert_files[0]))}
 
 
 
-# with smtplib.SMTP(smtp_server, port) as server:
-#     server.starttls()
-#     server.ehlo()
-#     server.login(sender_email, sender_password)
+with smtplib.SMTP(smtp_server, port) as server:
+    server.starttls()
+    server.ehlo()
+    server.login(sender_email, sender_password)
      
-#     #reader = pd.read_csv("attendees/testDataSet.csv")#csv.reader(file) reader[reader.columns[0]], reader[reader.columns[2]]
-#     for name in full_name:
+    #reader = pd.read_csv("attendees/testDataSet.csv")#csv.reader(file) reader[reader.columns[0]], reader[reader.columns[2]]
+    for name in full_name:
         
-#         msg["subject"] = "Leadership Training Certificate"
-#         msg["from"] = sender_email  
-#         msg.attach(MIMEText(body, "plain"))
+        msg["subject"] = "Leadership Training Certificate"
+        msg["from"] = sender_email  
+        msg.attach(MIMEText(body, "plain"))
         
         
-#         with open(att_cert[name], "rb") as attachment:
-#             # The content type "application/octet-stream" means that a MIME attachment is a binary file
-#             part = MIMEBase("application", "octet-stream")
-#             part.set_payload(attachment.read())
+        with open(att_cert[name], "rb") as attachment:
+            # The content type "application/octet-stream" means that a MIME attachment is a binary file
+            part = MIMEBase("application", "octet-stream")
+            part.set_payload(attachment.read())
             
-#             filename = os.path.split(att_cert[name])[-1]
+            filename = os.path.split(att_cert[name])[-1]
 
-#             # Encode to base64
-#             encoders.encode_base64(part)
-#             # Add header 
-#             part.add_header(
-#                 "Content-Disposition", f"attachment; filename= {filename}",
-#             )
-#             # Add attachment to your message and convert it to string
-#             msg.attach(part)
-#             text = msg.as_string()
+            # Encode to base64
+            encoders.encode_base64(part)
+            # Add header 
+            part.add_header(
+                "Content-Disposition", f"attachment; filename= {filename}",
+            )
+            # Add attachment to your message and convert it to string
+            msg.attach(part)
+            text = msg.as_string()
          
-#         recipient_email = att_email[name]
+        recipient_email = att_email[name]
         
-#         # server.sendmail( sender_email, recipient_email,text )
+        # server.sendmail( sender_email, recipient_email,text )
         
-#         msg = MIMEMultipart()
+        msg = MIMEMultipart()
         
-#         headerformatter("", 86, [1,0])
-#         #print(msg)
-#         print ("\nSuccessfully sent email:  {:}\t\t{:}".format(att_email[name], filename))
-        # headerformatter("", 86, [1,0])
+        headerformatter("", 86, [1,0])
+        #print(msg)
+        print ("\nSuccessfully sent email:  {:}\t\t{:}".format(att_email[name], filename))
+        headerformatter("", 86, [1,0])
 
 # server.quit()
 
