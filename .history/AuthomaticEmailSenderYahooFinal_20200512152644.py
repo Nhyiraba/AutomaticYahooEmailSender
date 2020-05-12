@@ -282,7 +282,7 @@ with smtplib.SMTP(smtp_server, port) as server:
 # server.quit()
 
 
-#this code can be use for email verification
+#this con
 # while True:
     
 #     sender_email = requestInput("Please enter your " + str(server_name[server_choice]) + " email address")
